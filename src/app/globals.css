@@ -24,3 +24,183 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  TEXTAREA — Global responsive fix                              */
+/*  Force le wrap du texte, taille naturelle, redim. vertical     */
+/* ═══════════════════════════════════════════════════════════════ */
+
+textarea {
+  /* Wrap le texte long (URLs, mots sans espaces) */
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+
+  /* Pas de débordement horizontal */
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  /* Respecte la largeur du parent */
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+
+  /* Hauteur naturelle minimum */
+  min-height: 5rem !important;
+
+  /* Redimensionnement vertical uniquement */
+  resize: vertical !important;
+
+  /* Hérite la police du parent (évite le monospace par défaut) */
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: 1.5 !important;
+}
+
+/* Les enfants (placeholder, contenu) suivent la même règle */
+textarea::placeholder {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+/* Les champs input aussi (au cas où) */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="url"] {
+  word-break: break-word !important;
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  ANTI-OVERFLOW GLOBAL                                          */
+/*  Empêche le texte, les textareas et les inputs de sortir       */
+/*  de leur conteneur ou de la page                               */
+/* ═══════════════════════════════════════════════════════════════ */
+
+/* Body & html : jamais de scroll horizontal */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+}
+
+/* Tous les éléments : inclure padding+border dans la largeur */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ── Flex items : le fix le plus important ── */
+/* Par défaut, un flex child a min-width:auto → il ne peut pas    */
+/* rétrécir en dessous de son contenu → débordement.              */
+.flex > *,
+.flex-1,
+.flex-auto {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ── Grid items : même problème ── */
+.grid > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ── Textareas : contraints dans tous les cas ── */
+textarea {
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  resize: vertical !important;
+  font-family: inherit !important;
+  line-height: 1.5 !important;
+}
+
+/* ── Inputs : idem ── */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="number"],
+input[type="tel"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* ── Paragraphes / div / titres : casser les mots longs ── */
+p, h1, h2, h3, h4, h5, h6, span, div, a, li, td, th {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* ── Pre / code : wrap au lieu de scroll horizontal ── */
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* ── Images / vidéos / iframes : ne jamais dépasser ── */
+img, video, iframe, svg, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════ */
+/*  TEXTAREA — Global responsive fix                              */
+/*  Force le wrap du texte, taille naturelle, redim. vertical     */
+/* ═══════════════════════════════════════════════════════════════ */
+
+textarea {
+  /* Wrap le texte long (URLs, mots sans espaces) */
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: pre-wrap !important;
+
+  /* Pas de débordement horizontal */
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  /* Respecte la largeur du parent */
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+
+  /* Hauteur naturelle minimum */
+  min-height: 5rem !important;
+
+  /* Redimensionnement vertical uniquement */
+  resize: vertical !important;
+
+  /* Hérite la police du parent (évite le monospace par défaut) */
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: 1.5 !important;
+}
+
+/* Les enfants (placeholder, contenu) suivent la même règle */
+textarea::placeholder {
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+/* Les champs input aussi (au cas où) */
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="url"] {
+  word-break: break-word !important;
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+}

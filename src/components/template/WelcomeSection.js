@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import {
-  FaBook, FaUserPlus, FaArrowRight, FaNewspaper, FaLeaf,
+  FaBook, FaUserPlus, FaArrowRight, FaNewspaper, FaLeaf, FaFilePdf
 } from "react-icons/fa";
 import banner from "@/../public/banner.jpg";
 import { verifyToken, COOKIE_NAME } from "@/lib/auth";
@@ -25,9 +25,7 @@ export default async function WelcomeSection({ searchParams }) {
   const primaryHref = isLoggedIn ? homeFor(session.role) : "/auth/register";
   const primaryLabel = isLoggedIn ? "Accéder à mon espace" : "Créer un compte";
 
-  
   return (
-    
     <section className="relative isolate overflow-hidden">
       {/* Background */}
       <Image
@@ -83,12 +81,23 @@ export default async function WelcomeSection({ searchParams }) {
             {!isLoggedIn && <FaUserPlus />}
             {primaryLabel}
           </Link>
+          
           <Link
             href="/publicSpace"
             className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/10 px-6 py-3 text-base font-semibold text-white backdrop-blur transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             <FaLeaf /> Explorer les articles
           </Link>
+
+          {/* NEW SYLLABUS BUTTON */}
+          <a
+            href="/syllabus-mg2psm/index.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border border-orange-500/40 bg-orange-500/10 px-6 py-3 text-base font-semibold text-orange-200 backdrop-blur transition hover:bg-orange-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
+          >
+            <FaFilePdf /> Voir le Syllabus
+          </a>
         </div>
 
         {/* Secondary — Journal CJP prominent card */}
@@ -121,14 +130,15 @@ export default async function WelcomeSection({ searchParams }) {
             </div>
           </Link>
         </div>
-      </div>
 
-              {showDisabledNotice && (
+        {/* Disabled Notice (Moved inside the centered container) */}
+        {showDisabledNotice && (
           <div className="mt-8 rounded-lg border border-orange-400/40 bg-orange-500/10 px-4 py-3 text-sm text-orange-200 backdrop-blur">
             Ce module n'est pas encore disponible. Il sera activé prochainement.
           </div>
         )}
         
+      </div>
     </section>
   );
 }

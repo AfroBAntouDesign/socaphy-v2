@@ -1,7 +1,7 @@
-// src/app/page.js
 import WelcomeSection from "../components/template/WelcomeSection";
 import AssociationSection from "../components/template/AssociationSection";
 import Nosservices from "../components/template/Nosservices";
+import { getSessionUser } from "@/lib/session";
 
 export const metadata = {
   title: "Accueil",
@@ -9,11 +9,13 @@ export const metadata = {
     "SOCAphy — la plateforme qui valorise la médecine traditionnelle camerounaise.",
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const user = await getSessionUser();
+
   return (
     <>
       <WelcomeSection />
-      <Nosservices />
+      <Nosservices user={user} />
       <AssociationSection />
     </>
   );

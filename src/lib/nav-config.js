@@ -34,6 +34,7 @@ export const GUEST_NAV = [
 export const NAV_BY_ROLE = {
   /* ── SUPER ADMIN ─────────────────────────────────────────────── */
   superAdmin: [
+    { href: "/", label: "Accueil", icon: FaHome },
     { href: "/adminDashboard", label: "SuperAdmin", icon: FaUser },
     { href: "/adminDashboard/manageUsers", label: "Utilisateurs", icon: FaUsersCog },
     { href: "/adminDashboard/manageMembers", label: "Membres SOCAphy", icon: FaUserShield },
@@ -57,6 +58,7 @@ export const NAV_BY_ROLE = {
 
   /* ── MEMBRE SOCAPHY ──────────────────────────────────────────── */
   adminSOCAphy: [
+    { href: "/", label: "Accueil", icon: FaHome },
     { href: "/users/adminSOCAphy", label: "Mon dashboard", icon: FaUser },
     { href: "/users/adminSOCAphy/articles", label: "Mes articles", icon: FaFileAlt },
     { href: "/users/adminSOCAphy/nouveau", label: "Nouvel article", icon: FaLightbulb },
@@ -84,6 +86,8 @@ export const NAV_BY_ROLE = {
 
   /* ── PATIENT ─────────────────────────────────────────────────── */
   patient: [
+    { href: "/", label: "Accueil", icon: FaHome },
+    { href: "/users/patient", label: "Dashboard Patient", icon: FaUser },
     { href: "/users/profile", label: "Mon profil", icon: FaUserCircle },
     { href: "/users/patient", label: "Dashboard Patient", icon: FaUser },
     { href: "/publicSpace", label: "Place publique", icon: FaGlobe },
@@ -94,6 +98,7 @@ export const NAV_BY_ROLE = {
 
   /* ── CURIEUX ─────────────────────────────────────────────────── */
   curieux: [
+     { href: "/", label: "Accueil", icon: FaHome },
     { href: "/users/profile", label: "Mon profil", icon: FaUserCircle },
     { href: "/users/curieux", label: "Dashboard", icon: FaUser },
     { href: "/publicSpace", label: "Place publique", icon: FaGlobe },
@@ -104,6 +109,7 @@ export const NAV_BY_ROLE = {
 
   /* ── CLIENT ──────────────────────────────────────────────────── */
   client: [
+     { href: "/", label: "Accueil", icon: FaHome },
     { href: "/users/profile", label: "Mon profil", icon: FaUserCircle },
     { href: "/users/client", label: "Dashboard Client", icon: FaUser },
     { href: "/publicSpace", label: "Place publique", icon: FaGlobe },

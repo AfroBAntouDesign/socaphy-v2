@@ -1,5 +1,6 @@
-// src/components/template/Nosservices.js
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import {
   FaFileAlt, FaUsers, FaStore, FaClipboardList,
   FaComments, FaShoppingBasket, FaUserMd,
@@ -15,6 +16,7 @@ const SERVICES = [
       "Ces articles sont approuvés et validés par des experts de la communauté SOCAphy.",
     cta: "Consulter",
     accent: "emerald",
+    ready: true,
   },
   {
     href: "/dashboard/admins/adminSOCAphy",
@@ -24,6 +26,7 @@ const SERVICES = [
       "Formulez une demande pour rejoindre notre communauté de scientifiques et nous aider à promouvoir nos valeurs. Les conditions d'admission sont décrites sur la page dédiée.",
     cta: "Postuler",
     accent: "orange",
+    ready: false,
   },
   {
     href: "/market",
@@ -33,6 +36,7 @@ const SERVICES = [
       "Commandez et faites-vous livrer un médicament testé, analysé et validé selon les normes camerounaises, approuvées par le MINSANTE.",
     cta: "Acheter",
     accent: "red",
+    ready: false,
   },
   {
     href: "/dashboard/admins/articles",
@@ -42,6 +46,7 @@ const SERVICES = [
       "Un processus rigoureux : la fiabilité et la politique de la SOCAphy en dépendent. Les articles sont soumis à une réglementation stricte.",
     cta: "Publier",
     accent: "blue",
+    ready: false,
   },
   {
     href: "/users/communaute",
@@ -51,6 +56,7 @@ const SERVICES = [
       "Créez une communauté autour d'un thème spécifique pour valoriser une idéologie médicale et échanger sur les traitements traditionnels.",
     cta: "Gérer",
     accent: "orange",
+    ready: false,
   },
   {
     href: "/market/open",
@@ -60,6 +66,7 @@ const SERVICES = [
       "Vendez des produits recherchés pour leurs vertus thérapeutiques. L'ouverture est réglementée par les scientifiques de la SOCAphy.",
     cta: "Ouvrir",
     accent: "emerald",
+    ready: false,
   },
   {
     href: "/specialists",
@@ -69,7 +76,9 @@ const SERVICES = [
       "Mise en contact avec une clinique, un cabinet médical ou un spécialiste pour vos préoccupations de santé, via les membres SOCAphy.",
     cta: "Contacter",
     accent: "blue",
+    ready: false,
   },
+  // These two are always live — sign up / sign in
   {
     href: "/auth/register",
     icon: FaUserPlus,
@@ -78,6 +87,7 @@ const SERVICES = [
       "Choisissez le profil adapté à votre situation. Votre compte sera validé par les administrateurs.",
     cta: "S'inscrire",
     accent: "orange",
+    ready: true,
   },
   {
     href: "/auth/login",
@@ -87,6 +97,7 @@ const SERVICES = [
       "Accédez directement à votre compte. Contactez les administrateurs en cas d'identifiant oublié.",
     cta: "Connexion",
     accent: "emerald",
+    ready: true,
   },
 ];
 
@@ -117,7 +128,22 @@ const ACCENT = {
   },
 };
 
-export default function Nosservices() {
+export default function Nosservices({ user }) {
+  const router = useRouter();
+
+  function handleNotReady(e, service) {
+    e.preventDefault();
+
+    const message = user
+      ? "Cette section n'est pas encore disponible. Vous allez être redirigé vers l'accueil."
+      : "Cette section n'est pas encore disponible. Créez un compte pour y accéder dès sa mise en ligne.";
+
+    // Simple, dependency-free modal message
+    const go = window.confirm(message);
+    // Regardless of OK/Cancel, proceed with redirect
+    router.push(user ? "/" : "/auth/register");
+  }
+
   return (
     <section id="services" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mb-12 text-center">
@@ -134,12 +160,8 @@ export default function Nosservices() {
           const a = ACCENT[s.accent];
           const Icon = s.icon;
 
-          return (
-            <Link
-              key={s.title}
-              href={s.href}
-              className={`group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${a.ring} ${a.hover}`}
-            >
+          const CardInner = (
+            <>
               <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl ${a.bg} text-white`}>
                 <Icon className="text-xl" aria-hidden />
               </div>
@@ -157,7 +179,32 @@ export default function Nosservices() {
               >
                 {s.cta}
               </span>
-            </Link>
+            </>
+          );
+
+          const sharedClass = `group flex flex-col rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${a.ring} ${a.hover}`;
+
+          if (!s.ready) {
+            return (
+              <button
+                key={s.title}
+                type="button"
+                onClick={(e) => handleNotReady(e, s)}
+                className={`${sharedClass} text-left`}
+              >
+                {CardInner}
+              </button>
+            );
+          }
+
+          return (
+            <a
+              key={s.title}
+              href={s.href}
+              className={sharedClass}
+            >
+              {CardInner}
+            </a>
           );
         })}
       </div>

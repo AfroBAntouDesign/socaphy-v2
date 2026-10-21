@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   FaBars,
@@ -11,11 +11,9 @@ import {
   FaSignOutAlt,
   FaUserPlus,
 } from "react-icons/fa";
-import logo from "@/../public/logo.png";
 
 export default function Navbar({ user = null, onToggleSidebar }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [loggingOut, setLoggingOut] = useState(false);
 
   const handleLogout = async () => {
@@ -46,15 +44,25 @@ export default function Navbar({ user = null, onToggleSidebar }) {
             <FaBars className="text-xl" />
           </button>
 
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src={logo}
-              alt="SOCAphy"
-              width={36}
-              height={36}
-              priority
-              className="h-9 w-9"
-            />
+          <Link href="/" className="flex items-center gap-3 group">
+            {/* Logo with nice glowing design border */}
+            <div className="relative">
+              {/* Gradient glow effect */}
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-emerald-400 via-yellow-300 to-emerald-400 opacity-50 blur-sm group-hover:opacity-100 transition duration-300"></div>
+              
+              {/* Image container */}
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gray-700 p-1 ring-1 ring-emerald-500 shadow-md overflow-hidden">
+                <Image
+                  src="/socaphy-logo.png" // Assumes your transparent logo is in public/logo.png
+                  alt="SOCAphy"
+                  width={40}
+                  height={40}
+                  priority
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            </div>
+            
             <span className="text-lg font-bold tracking-tight sm:text-xl">
               SOCAphy
             </span>
@@ -74,7 +82,7 @@ export default function Navbar({ user = null, onToggleSidebar }) {
 
               <Link
                 href="/auth/register"
-                className="inline-flex items-center gap-2 rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold transition hover:bg-orange-600"
+                className="inline-flex items-center gap-2 rounded-md bg-orange-500 px-3 py-2 text-sm font-semibold transition hover:bg-orange-600 shadow-sm"
               >
                 <FaUserPlus />
                 <span className="hidden sm:inline">S'inscrire</span>
@@ -84,7 +92,7 @@ export default function Navbar({ user = null, onToggleSidebar }) {
           ) : (
             <>
               {/* User name — desktop only */}
-              <span className="hidden text-sm text-emerald-100 md:inline">
+              <span className="hidden text-sm font-medium text-emerald-100 md:inline">
                 {user.name}
               </span>
 
